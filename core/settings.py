@@ -16,7 +16,7 @@ ALLOWED_HOSTS = list(filter(lambda host: host, env.list("ALLOWED_HOSTS")))
 
 CSRF_TRUSTED_ORIGINS = list(filter(lambda host: host, env.list("CSRF_TRUSTED_ORIGINS")))
 
-
+CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
