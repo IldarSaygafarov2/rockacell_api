@@ -12,28 +12,31 @@ SECRET_KEY = env.str("SECRET_KEY")
 
 DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = list(filter(lambda host: host, env.list("ALLOWED_HOSTS")))
+
+CSRF_TRUSTED_ORIGINS = list(filter(lambda host: host, env.list("CSRF_TRUSTED_ORIGINS")))
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    "modeltranslation",
+    
     "unfold",  # before django.contrib.admin
     "unfold.contrib.filters",  # optional, if special filters are needed
     "unfold.contrib.forms",  # optional, if special form elements are needed
-    #
+    "corsheaders",
+    "modeltranslation",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "ckeditor",
     "backend_app.apps.BackendAppConfig",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -113,6 +116,7 @@ LOCALE_PATHS = [
 
 LANGUAGES = (
     ("ru", "Russian"),
+    ("uz", "Uzbek"),
     ("en", "English"),
 )
 
