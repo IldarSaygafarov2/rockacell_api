@@ -1,6 +1,20 @@
 from ninja import Schema
 
 
+class RequestBaseSchema(Schema):
+    fullname: str
+    email: str
+    phone: str
+    company: str
+
+
+class RequestInSchema(RequestBaseSchema):
+    pass
+
+class RequestOutSchema(RequestBaseSchema):
+    id: int
+
+
 class CategorySchema(Schema):
     id: int
     title: str

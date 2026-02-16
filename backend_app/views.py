@@ -1,10 +1,9 @@
 from django.http import HttpRequest
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from ninja import NinjaAPI
 
-from .models import Category, Post, Product
-from .schemas import CategorySchema, ProductSchema, PostDetailSchema, PostListSchema
-
+from .models import Category, Post, Product, Request
+from .schemas import CategorySchema, ProductSchema, PostDetailSchema, PostListSchema, RequestOutSchema, RequestInSchema
 
 api = NinjaAPI()
 
@@ -38,3 +37,8 @@ def get_post_by_id(request: HttpRequest, id: int):
         posts=other_posts,
     )
     return result
+
+
+@api.post('/request/create/', response=RequestOutSchema)
+def create_request(request: HttpRequest, body: RequestInSchema):
+    return Request.objects.create(**body.model_dump())

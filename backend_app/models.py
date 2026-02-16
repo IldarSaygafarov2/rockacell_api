@@ -1,5 +1,4 @@
 from django.db import models
-from ckeditor.fields import RichTextField
 
 
 class BaseModel(models.Model):
@@ -67,3 +66,17 @@ class Post(BaseModel):
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
+
+
+class Request(BaseModel):
+    fullname = models.CharField(verbose_name='Полное имя', max_length=150)
+    phone = models.CharField(verbose_name='Номер телефона', max_length=20)
+    email = models.EmailField(verbose_name='Почта')
+    company = models.CharField(verbose_name='Компания')
+
+    def __str__(self):
+        return self.fullname
+
+    class Meta:
+        verbose_name = 'Запрос пользователя'
+        verbose_name_plural = 'Запросы пользователей'

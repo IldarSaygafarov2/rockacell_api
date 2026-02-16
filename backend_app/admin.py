@@ -4,8 +4,13 @@ from modeltranslation.admin import TranslationAdmin
 from unfold import admin as unfold_admin
 from unfold.contrib.forms.widgets import WysiwygWidget
 
-from .models import Category, Post, Product
+from .models import Category, Post, Product, Request
 
+
+@admin.register(Request)
+class RequestAdmin(unfold_admin.ModelAdmin):
+    list_display = ['id', 'fullname', 'phone', 'email', 'company']
+    
 
 @admin.register(Category)
 class CategoryAdmin(unfold_admin.ModelAdmin, TranslationAdmin):
