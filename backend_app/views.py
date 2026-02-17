@@ -2,8 +2,17 @@ from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from ninja import NinjaAPI
 
+from core import settings
+
 from .models import Category, Post, Product, Request
-from .schemas import CategorySchema, ProductSchema, PostDetailSchema, PostListSchema, RequestOutSchema, RequestInSchema
+from .schemas import (
+    CategorySchema,
+    PostDetailSchema,
+    PostListSchema,
+    ProductSchema,
+    RequestInSchema,
+    RequestOutSchema,
+)
 
 api = NinjaAPI()
 
@@ -39,6 +48,18 @@ def get_post_by_id(request: HttpRequest, id: int):
     return result
 
 
-@api.post('/request/create/', response=RequestOutSchema)
+from django.core.mail import send_mail
+
+
+@api.post("/request/create/", response=RequestOutSchema)
 def create_request(request: HttpRequest, body: RequestInSchema):
-    return Request.objects.create(**body.model_dump())
+    data = body.model_dump()
+    new_request = Request.objects.create(**data)
+    send_mail(
+        subject="Тема письма",
+        message="тест",
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[data["email"]],
+        fail_silently=False,
+    )
+    return new_request
