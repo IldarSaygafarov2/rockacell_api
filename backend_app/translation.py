@@ -4,7 +4,7 @@ from .models import Category, Product, Post
 
 
 class ProductTranslationOptions(TranslationOptions):
-    fields = ("title", "description")
+    fields = ("title", "short_description", "description")
 
 
 class CategoryTranslationOptions(TranslationOptions):

@@ -24,6 +24,7 @@ class Category(BaseModel):
 class Product(BaseModel):
     title = models.CharField(verbose_name="Название", max_length=150)
     slug = models.SlugField(verbose_name="Слаг", max_length=150)
+    short_description = models.TextField(verbose_name="Краткое описание", default="")
     description = models.TextField(verbose_name="Описание")
     preview = models.ImageField(verbose_name="Фото", upload_to="products/photos/")
     category = models.ForeignKey(
@@ -69,14 +70,14 @@ class Post(BaseModel):
 
 
 class Request(BaseModel):
-    fullname = models.CharField(verbose_name='Полное имя', max_length=150)
-    phone = models.CharField(verbose_name='Номер телефона', max_length=20)
-    email = models.EmailField(verbose_name='Почта')
-    company = models.CharField(verbose_name='Компания')
+    fullname = models.CharField(verbose_name="Полное имя", max_length=150)
+    phone = models.CharField(verbose_name="Номер телефона", max_length=20)
+    email = models.EmailField(verbose_name="Почта")
+    company = models.CharField(verbose_name="Компания")
 
     def __str__(self):
         return self.fullname
 
     class Meta:
-        verbose_name = 'Запрос пользователя'
-        verbose_name_plural = 'Запросы пользователей'
+        verbose_name = "Запрос пользователя"
+        verbose_name_plural = "Запросы пользователей"
